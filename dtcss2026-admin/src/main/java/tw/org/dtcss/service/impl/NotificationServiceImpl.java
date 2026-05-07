@@ -58,6 +58,9 @@ public class NotificationServiceImpl implements NotificationService {
 	private static final String FIELD_JOB_TITLE = "jobTitle";
 	private static final String FIELD_PHONE = "phone";
 	private static final String FIELD_CATEGORY = "category";
+	
+	// 繳費連結
+	private static final String FIXED_PAYMENT_URL = "/orders/payment";
 
 	@Override
 	public EmailBodyContent generateRegistrationSuccessContent(Member member, String bannerPhotoUrl) {

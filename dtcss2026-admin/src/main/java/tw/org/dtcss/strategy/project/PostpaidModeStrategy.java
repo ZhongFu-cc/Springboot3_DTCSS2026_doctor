@@ -67,6 +67,7 @@ public class PostpaidModeStrategy implements ProjectModeStrategy {
 			tagAssignmentHelper.assignTag(member.getMemberId(), ordersService::getNotPaidRegistrationOrderGroupIndex,
 					tagService::getOrCreateNotPaidGroupTag, memberTagService::addMemberTag);
 		}
+		
 
 		// 6.創建註冊成功通知信件內容
 		EmailBodyContent registrationSuccessContent = notificationService.generateRegistrationSuccessContent(member,
