@@ -11,8 +11,12 @@ import tw.org.dtcss.enums.MemberCategoryEnum;
 import tw.org.dtcss.enums.RegistrationPhaseEnum;
 import tw.org.dtcss.helper.TagAssignmentHelper;
 import tw.org.dtcss.pojo.DTO.EmailBodyContent;
+import tw.org.dtcss.pojo.entity.Attendees;
 import tw.org.dtcss.pojo.entity.Member;
+import tw.org.dtcss.pojo.entity.Tag;
 import tw.org.dtcss.service.AsyncService;
+import tw.org.dtcss.service.AttendeesService;
+import tw.org.dtcss.service.AttendeesTagService;
 import tw.org.dtcss.service.MemberTagService;
 import tw.org.dtcss.service.NotificationService;
 import tw.org.dtcss.service.OrdersService;
@@ -36,8 +40,10 @@ public class PostpaidModeStrategy implements ProjectModeStrategy {
 	private final RegistrationFeeConfig registrationFeeConfig;
 	private final TagAssignmentHelper tagAssignmentHelper;
 	private final MemberTagService memberTagService;
-	private final TagService tagService;
 	private final OrdersService ordersService;
+	private final AttendeesService attendeesService;
+	private final TagService tagService;
+	private final AttendeesTagService attendeesTagService;
 	private final SettingService settingService;
 	private final NotificationService notificationService;
 	private final AsyncService asyncService;
@@ -60,6 +66,19 @@ public class PostpaidModeStrategy implements ProjectModeStrategy {
 		// 5.如果註冊費金額為0 , 創建免費註冊費訂單 , 會自動為繳費完畢的情況
 		if (membershipFee.compareTo(BigDecimal.ZERO) == 0) {
 			ordersService.createFreeRegistrationOrder(member);
+			
+			// 5-1.自動繳費完畢,新增進與會者名單
+			Attendees attendees = attendeesService.addAttendees(member);
+
+			// 5-2.獲取當下 Attendees 群體的Index,用於後續標籤分組
+			int attendeesGroupIndex = attendeesService.getAttendeesGroupIndex(GROUP_SIZE);
+
+			// 5-3.與會者標籤分組
+			// 拿到 Tag（不存在則新增Tag）
+			Tag attendeesGroupTag = tagService.getOrCreateAttendeesGroupTag(attendeesGroupIndex);
+			// 關聯 Attendees 與 Tag
+			attendeesTagService.addAttendeesTag(attendees.getAttendeesId(), attendeesGroupTag.getTagId());
+			
 		} else {
 			// 創建付費註冊費訂單
 			ordersService.createRegistrationOrder(membershipFee, member);
@@ -67,6 +86,7 @@ public class PostpaidModeStrategy implements ProjectModeStrategy {
 			tagAssignmentHelper.assignTag(member.getMemberId(), ordersService::getNotPaidRegistrationOrderGroupIndex,
 					tagService::getOrCreateNotPaidGroupTag, memberTagService::addMemberTag);
 		}
+		
 
 		// 6.創建註冊成功通知信件內容
 		EmailBodyContent registrationSuccessContent = notificationService.generateRegistrationSuccessContent(member,
