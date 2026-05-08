@@ -25,6 +25,9 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Value("${project.name}")
 	private String PROJECT_NAME;
+	
+	@Value("${project.domain}")
+	private String DOMAIN;
 
 	@Value("${project.email.reply-to}")
 	private String REPLY_TO;
@@ -41,6 +44,7 @@ public class NotificationServiceImpl implements NotificationService {
 	/**
 	 * 固定通用的信件變量
 	 */
+	private static final String FIELD_DOMAIN = "domain";
 	private static final String FIELD_BANNER_PHOTO_URL = "bannerPhotoUrl";
 	private static final String FIELD_CONFERENCE_NAME = "conferenceName";
 	private static final String FIELD_UPDATE_TIME = "updateTime";
@@ -228,6 +232,7 @@ public class NotificationServiceImpl implements NotificationService {
 		// 1.設置通用變量
 		context.setVariable(FIELD_BANNER_PHOTO_URL, bannerPhotoUrl);
 		context.setVariable(FIELD_CONFERENCE_NAME, PROJECT_NAME);
+		context.setVariable(FIELD_DOMAIN, DOMAIN);
 
 		// 2. 這是給管理者的信，所以預設信件就好
 		String languagePath = "";
