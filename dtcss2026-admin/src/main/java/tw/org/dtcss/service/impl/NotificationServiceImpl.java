@@ -57,6 +57,7 @@ public class NotificationServiceImpl implements NotificationService {
 	 */
 	private static final String FIELD_FIRST_NAME = "firstName";
 	private static final String FIELD_LAST_NAME = "lastName";
+	private static final String CHINESE_NAME = "chineseName";
 	private static final String FIELD_COUNTRY = "country";
 	private static final String FIELD_AFFILIATION = "affiliation";
 	private static final String FIELD_JOB_TITLE = "jobTitle";
@@ -82,6 +83,7 @@ public class NotificationServiceImpl implements NotificationService {
 		// 2.設置註冊信變量
 		context.setVariable(FIELD_FIRST_NAME, member.getFirstName());
 		context.setVariable(FIELD_LAST_NAME, member.getLastName());
+		context.setVariable(CHINESE_NAME, member.getChineseName());
 		context.setVariable(FIELD_COUNTRY, member.getCountry());
 		context.setVariable(FIELD_AFFILIATION, member.getAffiliation());
 		context.setVariable(FIELD_JOB_TITLE, member.getJobTitle());
@@ -119,6 +121,7 @@ public class NotificationServiceImpl implements NotificationService {
 		// 2.設置註冊信變量
 		context.setVariable(FIELD_FIRST_NAME, member.getFirstName());
 		context.setVariable(FIELD_LAST_NAME, member.getLastName());
+		context.setVariable(CHINESE_NAME, member.getChineseName());
 		context.setVariable(FIELD_COUNTRY, member.getCountry());
 		context.setVariable(FIELD_AFFILIATION, member.getAffiliation());
 		context.setVariable(FIELD_JOB_TITLE, member.getJobTitle());
