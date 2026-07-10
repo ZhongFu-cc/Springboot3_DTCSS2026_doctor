@@ -61,6 +61,7 @@ public class NotificationServiceImpl implements NotificationService {
 	private static final String FIELD_COUNTRY = "country";
 	private static final String FIELD_AFFILIATION = "affiliation";
 	private static final String FIELD_JOB_TITLE = "jobTitle";
+	private static final String FIELD_RECEIPT = "receipt";
 	private static final String FIELD_PHONE = "phone";
 	private static final String FIELD_CATEGORY = "category";
 	
@@ -87,6 +88,7 @@ public class NotificationServiceImpl implements NotificationService {
 		context.setVariable(FIELD_COUNTRY, member.getCountry());
 		context.setVariable(FIELD_AFFILIATION, member.getAffiliation());
 		context.setVariable(FIELD_JOB_TITLE, member.getJobTitle());
+		context.setVariable(FIELD_RECEIPT, member.getReceipt());
 		context.setVariable(FIELD_PHONE, member.getPhone());
 		// Category 要轉換成字串
 		context.setVariable(FIELD_CATEGORY, MemberCategoryEnum.fromValue(member.getCategory()).getLabelEn());
@@ -125,6 +127,7 @@ public class NotificationServiceImpl implements NotificationService {
 		context.setVariable(FIELD_COUNTRY, member.getCountry());
 		context.setVariable(FIELD_AFFILIATION, member.getAffiliation());
 		context.setVariable(FIELD_JOB_TITLE, member.getJobTitle());
+		context.setVariable(FIELD_RECEIPT, member.getReceipt());
 		context.setVariable(FIELD_PHONE, member.getPhone());
 		// Category 要轉換成字串
 		context.setVariable(FIELD_CATEGORY, MemberCategoryEnum.fromValue(member.getCategory()).getLabelEn());
