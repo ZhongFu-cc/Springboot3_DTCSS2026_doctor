@@ -16,7 +16,10 @@ public class WalkInRegistrationDTO {
 
 	@Schema(description = "英文-姓氏, 華人的姓氏在前, 外國人的姓氏在後")
 	private String lastName;
-	
+
+	@Schema(description = "任職醫院")
+	private String affiliation;
+
 	@NotBlank
 	@Schema(description = "E-Mail")
 	private String email;

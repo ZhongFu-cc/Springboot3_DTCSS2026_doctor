@@ -397,6 +397,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 		member.setFirstName(walkInRegistrationDTO.getFirstName());
 		member.setLastName(walkInRegistrationDTO.getLastName());
 		member.setCategory(walkInRegistrationDTO.getCategory());
+		member.setAffiliation(walkInRegistrationDTO.getAffiliation());
 
 		//判斷Email有無被註冊過
 		LambdaQueryWrapper<Member> memberQueryWrapper = new LambdaQueryWrapper<>();
